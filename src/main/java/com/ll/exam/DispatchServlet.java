@@ -24,6 +24,8 @@ public class DispatchServlet extends HttpServlet {
         String url = req.getRequestURI();
 
         switch (url){
+            case "/usr/article/write/free":
+                articleController.showWrite(rq);
             case "/usr/article/list/free":
                 articleController.showList(rq);
                 break;
