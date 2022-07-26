@@ -37,4 +37,13 @@ public class ArticleController {
         rq.appendBody("<div>title : %s</div>".formatted(title));
         rq.appendBody("<div>body : %s</div>".formatted(body));
     }
+
+    public void showDetail(Rq rq){
+        long id =1;
+
+        ArticleDto articleDto = articleService.findById(id);
+
+        rq.setAttr("article",articleDto);
+        rq.view("/usr/article/detail");
+    }
 }
