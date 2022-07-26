@@ -19,8 +19,8 @@
         form.submit();
     }
 </script>
-
-<form onsubmit="ArticleSave__submitForm(this); return false;">
+<%--action은 생략시 해당 주소에 그대로 보냄--%>
+<form method = "POST" onsubmit="ArticleSave__submitForm(this); return false;">
     <div>
         <span>제목</span>
         <div>

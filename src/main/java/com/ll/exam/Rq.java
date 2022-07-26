@@ -27,6 +27,14 @@ public class Rq {
         resp.setContentType("text/html; charset=utf-8");
     }
 
+    public String getParam(String paramName, String defaultValue){
+        String value = req.getParameter(paramName);
+        if(value.equals(null)){
+            return defaultValue;
+        }
+        return value;
+    }
+
     public int getIntParam(String paramName, int defaultValue) {
         String value = req.getParameter(paramName);
 
@@ -63,5 +71,13 @@ public class Rq {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getPath() {
+        return req.getRequestURI();
+    }
+
+    public String getMethod() {
+        return req.getMethod();
     }
 }
