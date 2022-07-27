@@ -74,11 +74,20 @@ public class ArticleController {
         rq.view("/usr/article/modify");
     }
 
-    public void delete(Rq rq) {
+    public void doDelete(Rq rq) {
 
     }
 
     public void doModify(Rq rq) {
-        System.out.println("호출됨");
+        long id =rq.getLongPathValueByIndex(1,0);
+
+        String title = rq.getParam("title","");
+        String body = rq.getParam("body","");
+
+        articleService.modify(id, title,body);
+
+        ArticleDto articleDto = articleService.findById(id);
+        rq.setAttr("article",articleDto);
+        rq.view("/usr/article/detail");
     }
 }
