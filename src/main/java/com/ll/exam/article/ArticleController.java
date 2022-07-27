@@ -34,22 +34,22 @@ public class ArticleController {
 
         long id = articleService.write(title, body);
 
-        rq.appendBody("%d번 게시물이 생성 되었습니다.".formatted(id));
-        rq.appendBody("<div><a href=\"/usr/article/list/free\">리스트로 이동</a></div>");
+        rq.println("%d번 게시물이 생성 되었습니다.".formatted(id));
+        rq.println("<div><a href=\"/usr/article/list/free\">리스트로 이동</a></div>");
     }
 
     public void showDetail(Rq rq){
         long id =rq.getLongPathValueByIndex(1,0);
 
         if (id == 0) {
-            rq.appendBody("번호를 입력해주세요.");
+            rq.println("번호를 입력해주세요.");
             return;
         }
 
         ArticleDto articleDto = articleService.findById(id);
 
         if (articleDto == null) {
-            rq.appendBody("해당 글이 존재하지 않습니다.");
+            rq.println("해당 글이 존재하지 않습니다.");
             return;
         }
         rq.setAttr("article",articleDto);
@@ -60,13 +60,13 @@ public class ArticleController {
         long id = rq.getLongPathValueByIndex(1,0);
 
         if (id == 0) {
-            rq.appendBody("번호를 입력해주세요.");
+            rq.println("번호를 입력해주세요.");
             return;
         }
         ArticleDto articleDto = articleService.findById(id);
 
         if (articleDto == null) {
-            rq.appendBody("해당 글이 존재하지 않습니다.");
+            rq.println("해당 글이 존재하지 않습니다.");
             return;
         }
 
@@ -78,21 +78,21 @@ public class ArticleController {
         long id = rq.getLongPathValueByIndex(1, 0);
 
         if (id == 0) {
-            rq.appendBody("번호를 입력해주세요.");
+            rq.println("번호를 입력해주세요.");
             return;
         }
 
         ArticleDto articleDto = articleService.findById(id);
 
         if (articleDto == null) {
-            rq.appendBody("해당 글이 존재하지 않습니다.");
+            rq.println("해당 글이 존재하지 않습니다.");
             return;
         }
 
         articleService.delete(id);
 
-        rq.appendBody("<div>%d번 게시물이 삭제되었습니다.</div>".formatted(id));
-        rq.appendBody("<div><a href=\"/usr/article/list/free\">리스트로 이동</a></div>");
+        rq.println("<div>%d번 게시물이 삭제되었습니다.</div>".formatted(id));
+        rq.println("<div><a href=\"/usr/article/list/free\">리스트로 이동</a></div>");
     }
 
     public void doModify(Rq rq) {
@@ -103,6 +103,6 @@ public class ArticleController {
 
         articleService.modify(id, title,body);
 
-        rq.appendBody("<div>%d번 게시물이 수정되었습니다.</div>".formatted(id));
-        rq.appendBody("<div><a href=\"/usr/article/detail/free/%d\">수정된 글로 이동</a></div>".formatted(id));}
+        rq.println("<div>%d번 게시물이 수정되었습니다.</div>".formatted(id));
+        rq.println("<div><a href=\"/usr/article/detail/free/%d\">수정된 글로 이동</a></div>".formatted(id));}
 }
