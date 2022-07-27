@@ -49,14 +49,14 @@
     <div>
         <span>제목</span>
         <div>
-            <input name="title" type="text" maxlength="50" placeholder=<%=article.getTitle()%> />
+            <input name="title" type="text" maxlength="50" value= <%=article.getTitle()%> />
         </div>
     </div>
 
     <div>
         <span>내용</span>
         <div>
-            <input name="body" type="text" maxlength="300" placeholder=<%=article.getBody()%> />
+            <input name="body" type="text" maxlength="300" value= <%=article.getBody()%> />
         </div>
     </div>
 
