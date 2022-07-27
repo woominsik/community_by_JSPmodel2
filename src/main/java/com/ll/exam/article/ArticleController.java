@@ -34,8 +34,8 @@ public class ArticleController {
 
         long id = articleService.write(title, body);
 
-        rq.appendBody("<div>title : %s</div>".formatted(title));
-        rq.appendBody("<div>body : %s</div>".formatted(body));
+        rq.appendBody("%d번 게시물이 생성 되었습니다.".formatted(id));
+        rq.appendBody("<div><a href=\"/usr/article/list/free\">리스트로 이동</a></div>");
     }
 
     public void showDetail(Rq rq){
