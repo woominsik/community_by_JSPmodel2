@@ -84,7 +84,7 @@ public class ArticleController {
         ArticleDto articleDto = articleService.findById(id);
 
         if (articleDto == null) {
-            rq.historyBack("번호를 입력해주세요.");
+            rq.historyBack("해당 글이 존재하지 않습니다.");
             return;
         }
 
