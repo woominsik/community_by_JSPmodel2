@@ -39,7 +39,15 @@ public class ArticleRepository {
 
     public void modify(long id, String title, String body) {
         ArticleDto articleDto = findById(id);
+
+        if (articleDto == null) return;
+
         articleDto.setTitle(title);
         articleDto.setBody(body);
+    }
+
+    public void delete(long id) {
+        ArticleDto articleDto = findById(id);
+        datum.remove(articleDto);
     }
 }
