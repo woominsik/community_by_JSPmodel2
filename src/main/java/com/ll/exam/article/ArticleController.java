@@ -55,4 +55,30 @@ public class ArticleController {
         rq.setAttr("article",articleDto);
         rq.view("/usr/article/detail");
     }
+
+    public void showModify(Rq rq) {
+        long id = rq.getLongPathValueByIndex(1,0);
+
+        if (id == 0) {
+            rq.appendBody("번호를 입력해주세요.");
+            return;
+        }
+        ArticleDto articleDto = articleService.findById(id);
+
+        if (articleDto == null) {
+            rq.appendBody("해당 글이 존재하지 않습니다.");
+            return;
+        }
+
+        rq.setAttr("article",articleDto);
+        rq.view("/usr/article/modify");
+    }
+
+    public void delete(Rq rq) {
+
+    }
+
+    public void doModify(Rq rq) {
+        System.out.println("호출됨");
+    }
 }
