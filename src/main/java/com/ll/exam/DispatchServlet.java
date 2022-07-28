@@ -2,26 +2,21 @@ package com.ll.exam;
 
 import com.ll.exam.article.ArticleController;
 import com.ll.exam.member.MemberController;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-import java.util.Arrays;
-
 @WebServlet("/usr/*")
 public class DispatchServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        Rq rq = new Rq(req,resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        Rq rq = new Rq(req, resp);
 
         MemberController memberController = new MemberController();
         ArticleController articleController = new ArticleController();
 
-        switch (rq.getMethod()) {
+        switch (rq.getRouteMethod()) {
             case "GET":
                 switch (rq.getActionPath()) {
                     case "/usr/article/modify":
@@ -46,19 +41,22 @@ public class DispatchServlet extends HttpServlet {
                     case "/usr/article/write":
                         articleController.doWrite(rq);
                         break;
-                    case "/usr/article/delete":
-                        articleController.doDelete(rq);
-                        break;
                     case "/usr/article/modify":
                         articleController.doModify(rq);
                         break;
                 }
                 break;
+            case "DELETE":
+                switch (rq.getActionPath()) {
+                    case "/usr/article/delete":
+                        articleController.doDelete(rq);
+                        break;
+                }
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req,resp);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        doGet(req, resp);
     }
 }

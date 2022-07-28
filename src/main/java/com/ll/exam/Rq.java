@@ -1,6 +1,5 @@
 package com.ll.exam;
 
-import com.ll.exam.article.dto.ArticleDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,7 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.List;
 
 public class Rq {
     private final HttpServletRequest req;
@@ -27,11 +25,13 @@ public class Rq {
         resp.setContentType("text/html; charset=utf-8");
     }
 
-    public String getParam(String paramName, String defaultValue){
+    public String getParam(String paramName, String defaultValue) {
         String value = req.getParameter(paramName);
-        if(value.equals(null)){
+
+        if (value == null || value.trim().length() == 0) {
             return defaultValue;
         }
+
         return value;
     }
 
@@ -61,12 +61,12 @@ public class Rq {
         print(str + "\n");
     }
 
-
     public void setAttr(String name, Object value) {
         req.setAttribute(name, value);
     }
 
     public void view(String path) {
+        // gugudan2.jsp 에게 나머지 작업을 토스
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/jsp/" + path + ".jsp");
         try {
             requestDispatcher.forward(req, resp);
@@ -81,27 +81,32 @@ public class Rq {
         return req.getRequestURI();
     }
 
-    public String getActionPath(){
-        String [] bits = req.getRequestURI().split("/");
+    public String getActionPath() {
+        String[] bits = req.getRequestURI().split("/");
 
-        return "/%s/%s/%s".formatted(bits[1],bits[2],bits[3]);
+        return "/%s/%s/%s".formatted(bits[1], bits[2], bits[3]);
     }
 
-    public String getMethod() {
+    public String getRouteMethod() {
+        String method = getParam("_method", "");
+
+        if (method.length() > 0 ) {
+            return method.toUpperCase();
+        }
+
         return req.getMethod();
     }
 
     public long getLongPathValueByIndex(int index, long defaultValue) {
         String value = getPathValueByIndex(index, null);
 
-        if ( value == null ) {
+        if (value == null) {
             return defaultValue;
         }
 
         try {
             return Long.parseLong(value);
-        }
-        catch ( NumberFormatException e ) {
+        } catch (NumberFormatException e) {
             return defaultValue;
         }
     }
